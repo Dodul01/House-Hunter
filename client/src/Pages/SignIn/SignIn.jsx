@@ -36,6 +36,7 @@ const SignIn = () => {
 
                 if (data.status == 200) {
                     navigate(`/${data.userData.role}`)
+                    localStorage.setItem('accessToken', data.token)
                 }
             })
 

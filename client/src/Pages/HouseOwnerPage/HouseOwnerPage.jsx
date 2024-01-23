@@ -14,7 +14,7 @@ const HouseOwnerPage = () => {
 
   return (
     <div>
-      <NavBar userName={user?.name} userRole={user?.userRole} />
+      <NavBar userName={user?.name} userRole={user?.role} />
       <h1 className="text-2xl font-semibold m-2">Rooms List</h1>
       <RoomList />
     </div>
