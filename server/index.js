@@ -8,7 +8,7 @@ require('dotenv').config()
 app.use(cors());
 app.use(express.json());
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 
 
@@ -115,6 +115,14 @@ async function run() {
       }
 
       const result = await roomsCollections.find(query).toArray();
+
+      res.send(result);
+    })
+
+    app.delete('/rooms/:id', verifyToken, async (req, res) => {
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)};
+      const result = await roomsCollections.deleteOne(query);
 
       res.send(result);
     })

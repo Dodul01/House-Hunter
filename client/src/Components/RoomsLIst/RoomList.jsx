@@ -7,6 +7,23 @@ const RoomList = () => {
 
     const token = localStorage.getItem('accessToken');
 
+    const handleDelete = (id) => {
+        fetch(`http://localhost:5000/rooms/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-type' : 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.deletedCount > 0){
+               
+            }
+        })
+    }
+
+
     useEffect(() => {
         fetch(`http://localhost:5000/rooms?email=${user.email}`, {
             method: 'GET',
@@ -27,7 +44,7 @@ const RoomList = () => {
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
                         <th scope="col" className="px-6 py-3">
-                            Name
+                            Image
                         </th>
                         <th scope="col" className="px-6 py-3">
                             Address
@@ -61,9 +78,9 @@ const RoomList = () => {
                 <tbody>
                     {rooms.map((room) => {
                         return <tr key={room?._id} className="bg-white border-b hover:bg-gray-100">
-                            <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
+                            <td scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
                                 <img className="h-[50px] w-[50px] rounded-full" src={room?.roomImage} alt="" />
-                            </th>
+                            </td>
                             <td className="px-6 py-4 text-center">{room?.address}</td>
                             <td className="px-6 py-4 text-center">{room?.city}</td>
                             <td className="px-6 py-4 text-center">{room?.bedRoom}</td>
@@ -80,7 +97,7 @@ const RoomList = () => {
                                 <button className="text-blue-600 hover:underline" title="Edit">
                                     <FaEdit />
                                 </button>
-                                <button className="text-red-600 hover:underline" title="Delete">
+                                <button onClick={()=> handleDelete(room?._id)} className="text-red-600 hover:underline" title="Delete">
                                     <FaTrash />
                                 </button>
                             </td>
