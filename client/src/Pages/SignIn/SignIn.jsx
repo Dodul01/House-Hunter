@@ -1,14 +1,12 @@
-import { SiNamecheap } from "react-icons/si";
 import { HiOutlineMail } from "react-icons/hi";
-import { FaPhoneAlt } from "react-icons/fa";
 import { IoKeyOutline } from "react-icons/io5";
-import { TiGroup } from "react-icons/ti";
 import { FaRegEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const SignIn = () => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const navigate = useNavigate()
 
     const handleFormSubmit = (e) => {
         const Form = e.target;
@@ -19,19 +17,23 @@ const SignIn = () => {
 
         const userInfo = { email, password };
 
-        
+
         fetch('http://localhost:5000/signIn', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-type' : 'application/json'
+                'Content-type': 'application/json'
             },
             body: JSON.stringify(userInfo)
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data.message);
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data.userData.role);
+
+                if (data.status == 200) {
+                    navigate(`/${data.userData.role}`)
+                }
+            })
 
 
         e.preventDefault();

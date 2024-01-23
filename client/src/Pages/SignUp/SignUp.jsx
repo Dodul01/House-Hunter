@@ -4,12 +4,13 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { IoKeyOutline } from "react-icons/io5";
 import { TiGroup } from "react-icons/ti";
 import { FaRegEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const SignUp = () => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    
+    const navigate = useNavigate();
+
     const handleFormSubmit = (e) => {
         const Form = e.target;
         const fullName = Form.fullName.value 
@@ -29,7 +30,10 @@ const SignUp = () => {
         .then(res => res.json())
         .then(data => {
             localStorage.setItem('accessToken', data.token)
-            alert(data.message)
+            
+            if(data.status == 200){
+                navigate(`/${data.userData.role}`)
+            }
         })
 
         e.preventDefault();
