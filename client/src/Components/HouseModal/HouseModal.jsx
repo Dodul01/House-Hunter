@@ -13,6 +13,7 @@ const HouseModal = ({ setIsModalOpen }) => {
         const phone = Form.phone.value;
         const description = Form.description.value;
         const room = { name, address, city, bedRoom, bathRoom, roomImage, roomSize, date, rentPerMonth, phone, description };
+        
         console.log(room);
 
         Form.reset()

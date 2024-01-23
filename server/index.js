@@ -51,7 +51,6 @@ async function run() {
     // await client.connect();
     const userCollections = client.db('HouseHunter').collection('userCollections');
 
-
     app.post('/signUp', async (req, res) => {
       const userInfo = req.body;
 

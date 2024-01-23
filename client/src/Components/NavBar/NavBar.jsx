@@ -7,12 +7,10 @@ const NavBar = ({ userName, userRole, onSignOut, onAddNewHouse }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-
-
     return (
         <nav>
             {/* House Owner Navbar */}
-            <div className=' p-2 flex items-center justify-between'>
+            <div className=' p-2 mb-10 flex items-center justify-between'>
                 <div>
                     <h1 className='text-3xl font-bold text-[#E4002B]'>House Hunter</h1>
                 </div>
@@ -23,8 +21,7 @@ const NavBar = ({ userName, userRole, onSignOut, onAddNewHouse }) => {
                     <div className='flex items-center gap-4 relative select-none'>
                         <div onClick={() => setIsDropdownOpen(!isDropdownOpen)} className='flex items-center gap-2 cursor-pointer hover:bg-gray-100 rounded-lg p-1'>
                             <IoIosArrowDown />
-                            <h4 className='font-bold'>Mozammel Hoque Dodul</h4>
-                            <img className='h-[60px] w-[60px] rounded-full border border-[#E4002B]' src="https://avatars.githubusercontent.com/u/105786357?v=4" alt="user_Image" />
+                            <h4 className='font-bold'>{userName}</h4>
                         </div>
                         <div className={`${isDropdownOpen ? 'block' : 'hidden'} absolute top-20 min-w-52 right-2 bg-white shadow rounded-lg border z-50`}>
                             <div className='flex flex-col p-4 rounded-lg gap-2'>

@@ -2,11 +2,13 @@ import { HiOutlineMail } from "react-icons/hi";
 import { IoKeyOutline } from "react-icons/io5";
 import { FaRegEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "../../Context/appContext";
 
 const SignIn = () => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const navigate = useNavigate()
+    const { setUser, user } = useContext(AppContext);
 
     const handleFormSubmit = (e) => {
         const Form = e.target;
@@ -28,13 +30,12 @@ const SignIn = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data.userData.role);
+                setUser(data.userData);
 
                 if (data.status == 200) {
                     navigate(`/${data.userData.role}`)
                 }
             })
-
 
         e.preventDefault();
         Form.reset()

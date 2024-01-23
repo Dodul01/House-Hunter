@@ -43,19 +43,19 @@ const RoomList = () => {
                         <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
                             <img className="h-[50px] w-[50px] rounded-full" src="https://www.interiorzine.com/wp-content/uploads/2016/05/vacation-house-17.jpg" alt="" />
                         </th>
-                        <td className="px-6 py-4">123 Main St</td>
-                        <td className="px-6 py-4">City Name</td>
-                        <td className="px-6 py-4">3</td>
-                        <td className="px-6 py-4">2</td>
-                        <td className="px-6 py-4">250 sq.ft</td>
-                        <td className="px-6 py-4">2024-01-31</td>
-                        <td className="px-6 py-4">$1200</td>
-                        <td className="px-6 py-4">
+                        <td className="px-6 py-4 text-center">123 Main St</td>
+                        <td className="px-6 py-4 text-center">City Name</td>
+                        <td className="px-6 py-4 text-center">3</td>
+                        <td className="px-6 py-4 text-center">2</td>
+                        <td className="px-6 py-4 text-center">250 sq.ft</td>
+                        <td className="px-6 py-4 text-center">2024-01-31</td>
+                        <td className="px-6 py-4 text-center">$1200</td>
+                        <td className="px-6 py-4 text-center">
                             <div className="flex items-center">
-                                <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> <span>Online</span>
+                                <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> <span>Available</span>
                             </div>
                         </td>
-                        <td className="px-6 py-4 space-x-2">
+                        <td className="px-6 py-4 space-x-2 text-center">
                             <button className="text-blue-600 hover:underline" title="Edit">
                                 <FaEdit />
                             </button>
