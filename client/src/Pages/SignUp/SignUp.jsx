@@ -19,7 +19,17 @@ const SignUp = () => {
         const password = Form.password.value
         const userInfo = {fullName, userRole, phoneNumber, email, password};
         
-        console.log(userInfo);
+        fetch('http://localhost:5000/signUp', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(userInfo)
+        })
+        .then(res => res.json())
+        .then(data => {
+            localStorage.setItem('accessToken', data.token)
+        })
 
         e.preventDefault();
         Form.reset()
@@ -40,7 +50,7 @@ const SignUp = () => {
                         <select className="w-full p-1 outline-none border-none" name="userRole">
                             <option value="null">Select Role</option>
                             <option value="houseOwner">House Owner</option>
-                            <option value=" houseRenter">House Renter</option>
+                            <option value="houseRenter">House Renter</option>
                         </select>
                     </div>
 
