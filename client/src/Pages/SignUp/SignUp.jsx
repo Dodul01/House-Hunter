@@ -5,21 +5,23 @@ import { IoKeyOutline } from "react-icons/io5";
 import { TiGroup } from "react-icons/ti";
 import { FaRegEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "../../Context/appContext";
 
 const SignUp = () => {
+    const { storeUserInfoInLocalStorage } = useContext(AppContext);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const navigate = useNavigate();
 
     const handleFormSubmit = (e) => {
         const Form = e.target;
-        const fullName = Form.fullName.value 
+        const fullName = Form.fullName.value
         const userRole = Form.userRole.value
         const phoneNumber = Form.phoneNumber.value
         const email = Form.email.value
         const password = Form.password.value
-        const userInfo = {fullName, userRole, phoneNumber, email, password};
-        
+        const userInfo = { fullName, userRole, phoneNumber, email, password };
+
         fetch('http://localhost:5000/signUp', {
             method: 'POST',
             headers: {
@@ -27,14 +29,15 @@ const SignUp = () => {
             },
             body: JSON.stringify(userInfo)
         })
-        .then(res => res.json())
-        .then(data => {
-            localStorage.setItem('accessToken', data.token)
-            
-            if(data.status == 200){
-                navigate(`/${data.userData.role}`)
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                localStorage.setItem('accessToken', data.token)
+
+                if (data.status == 200) {
+                    navigate(`/${data.userData.role}`)
+                    storeUserInfoInLocalStorage(data.userData);
+                }
+            })
 
         e.preventDefault();
         Form.reset()
@@ -73,7 +76,7 @@ const SignUp = () => {
                         <IoKeyOutline className="text-2xl ml-1" />
                         <input className="w-full p-1 outline-none border-none" type={isPasswordVisible ? 'text' : 'password'} placeholder="********" name="password" />
                         <div onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
-                            {isPasswordVisible ?  <FaEyeSlash className="text-2xl mr-1 cursor-pointer" /> : <FaRegEye className="text-2xl mr-1 cursor-pointer" />}
+                            {isPasswordVisible ? <FaEyeSlash className="text-2xl mr-1 cursor-pointer" /> : <FaRegEye className="text-2xl mr-1 cursor-pointer" />}
                         </div>
                     </div>
 

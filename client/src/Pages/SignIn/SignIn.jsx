@@ -8,7 +8,7 @@ import { AppContext } from "../../Context/appContext";
 const SignIn = () => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const navigate = useNavigate()
-    const { setUser, user } = useContext(AppContext);
+    const { setUser, user, storeUserInfoInLocalStorage } = useContext(AppContext);
 
     const handleFormSubmit = (e) => {
         const Form = e.target;
@@ -30,7 +30,9 @@ const SignIn = () => {
         })
             .then(res => res.json())
             .then(data => {
+                
                 setUser(data.userData);
+                storeUserInfoInLocalStorage(data.userData);
 
                 if (data.status == 200) {
                     navigate(`/${data.userData.role}`)

@@ -50,6 +50,7 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     // await client.connect();
     const userCollections = client.db('HouseHunter').collection('userCollections');
+    const roomsCollections = client.db('HouseHunter').collection('roomsCollections');
 
     app.post('/signUp', async (req, res) => {
       const userInfo = req.body;
@@ -98,7 +99,25 @@ async function run() {
       }
     });
 
+    app.post('/rooms', verifyToken, async (req, res) => {
+      const room = req.body;
+      const result = await roomsCollections.insertOne(room);
 
+      res.send({ status: 200, message: 'data recive sucessfully', result })
+    });
+
+
+    app.get('/rooms', verifyToken, async (req, res) => {
+      let query = {};
+
+      if (req.query?.email) {
+        query = { houseOwner: req.query.email };
+      }
+
+      const result = await roomsCollections.find(query).toArray();
+
+      res.send(result);
+    })
 
     // Send a ping to confirm a successful connection
     // await client.db("admin").command({ ping: 1 });

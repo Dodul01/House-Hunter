@@ -1,6 +1,26 @@
+import { useContext, useEffect, useState } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import { AppContext } from '../../Context/appContext';
 
 const RoomList = () => {
+    const { user, setRooms, rooms } = useContext(AppContext);
+
+    const token = localStorage.getItem('accessToken');
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/rooms?email=${user.email}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                setRooms(data)
+            })
+    }, [user, rooms])
+
     return (
         <div>
             <table className="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -39,31 +59,34 @@ const RoomList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="bg-white border-b hover:bg-gray-100">
-                        <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
-                            <img className="h-[50px] w-[50px] rounded-full" src="https://www.interiorzine.com/wp-content/uploads/2016/05/vacation-house-17.jpg" alt="" />
-                        </th>
-                        <td className="px-6 py-4 text-center">123 Main St</td>
-                        <td className="px-6 py-4 text-center">City Name</td>
-                        <td className="px-6 py-4 text-center">3</td>
-                        <td className="px-6 py-4 text-center">2</td>
-                        <td className="px-6 py-4 text-center">250 sq.ft</td>
-                        <td className="px-6 py-4 text-center">2024-01-31</td>
-                        <td className="px-6 py-4 text-center">$1200</td>
-                        <td className="px-6 py-4 text-center">
-                            <div className="flex items-center">
-                                <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> <span>Available</span>
-                            </div>
-                        </td>
-                        <td className="px-6 py-4 space-x-2 text-center">
-                            <button className="text-blue-600 hover:underline" title="Edit">
-                                <FaEdit />
-                            </button>
-                            <button className="text-red-600 hover:underline" title="Delete">
-                                <FaTrash />
-                            </button>
-                        </td>
-                    </tr>
+                    {rooms.map((room) => {
+                        return <tr key={room?._id} className="bg-white border-b hover:bg-gray-100">
+                            <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
+                                <img className="h-[50px] w-[50px] rounded-full" src={room?.roomImage} alt="" />
+                            </th>
+                            <td className="px-6 py-4 text-center">{room?.address}</td>
+                            <td className="px-6 py-4 text-center">{room?.city}</td>
+                            <td className="px-6 py-4 text-center">{room?.bedRoom}</td>
+                            <td className="px-6 py-4 text-center">{room?.bathRoom}</td>
+                            <td className="px-6 py-4 text-center">{room?.roomSize}</td>
+                            <td className="px-6 py-4 text-center">{room?.date}</td>
+                            <td className="px-6 py-4 text-center">${room?.rentPerMonth}</td>
+                            <td className="px-6 py-4 text-center">
+                                <div className="flex items-center">
+                                    <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> <span>Available</span>
+                                </div>
+                            </td>
+                            <td className="px-6 py-4 space-x-2 text-center">
+                                <button className="text-blue-600 hover:underline" title="Edit">
+                                    <FaEdit />
+                                </button>
+                                <button className="text-red-600 hover:underline" title="Delete">
+                                    <FaTrash />
+                                </button>
+                            </td>
+                        </tr>
+                    })}
+
                 </tbody>
             </table>
         </div>

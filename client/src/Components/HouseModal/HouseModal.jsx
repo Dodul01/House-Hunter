@@ -1,4 +1,9 @@
+import { useContext } from "react";
+import { AppContext } from "../../Context/appContext";
+
 const HouseModal = ({ setIsModalOpen }) => {
+    const { user } = useContext(AppContext)
+
     const handleForm = (e) => {
         const Form = e.target;
         const name = Form.name.value;
@@ -12,9 +17,20 @@ const HouseModal = ({ setIsModalOpen }) => {
         const rentPerMonth = Form.rentPerMonth.value;
         const phone = Form.phone.value;
         const description = Form.description.value;
-        const room = { name, address, city, bedRoom, bathRoom, roomImage, roomSize, date, rentPerMonth, phone, description };
-        
-        console.log(room);
+        const room = { name, address, city, bedRoom, bathRoom, roomImage, roomSize, date, rentPerMonth, phone, description, houseOwner: user?.email };
+
+        const token = localStorage.getItem('accessToken');
+
+        fetch('http://localhost:5000/rooms', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(room)
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
 
         Form.reset()
         e.preventDefault();
