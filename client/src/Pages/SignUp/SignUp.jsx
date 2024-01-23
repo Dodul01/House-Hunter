@@ -29,6 +29,7 @@ const SignUp = () => {
         .then(res => res.json())
         .then(data => {
             localStorage.setItem('accessToken', data.token)
+            alert(data.message)
         })
 
         e.preventDefault();

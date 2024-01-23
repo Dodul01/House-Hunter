@@ -29,7 +29,9 @@ const SignIn = () => {
             body: JSON.stringify(userInfo)
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            console.log(data.message);
+        })
 
 
         e.preventDefault();

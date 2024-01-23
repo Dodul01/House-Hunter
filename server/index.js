@@ -64,16 +64,31 @@ async function run() {
       const insertUser = await userCollections.insertOne(userInfo)
       const token = jwt.sign({ email: userInfo.email, userRole: userInfo.userRole }, process.env.ACCESS_TOKEN, { expiresIn: '1d' })
 
-      res.send({ status: 200, message: 'Data Recive Sucessfully!', token })
+      res.send({ status: 200, message: 'Sign Up Sucessfully!', token })
     })
 
     app.post('/signIn', verifyToken, async (req, res) => {
       const userInfo = req.body;
 
-      // check the user and then give neseciry access
+      const existingUser = await userCollections.findOne({ email: userInfo.email });
 
-      console.log(req.role);
-    })
+      if (!existingUser) {
+        return res.status(404).json({ status: 404, message: 'User does not exist.' });
+      }
+
+      const matchPassword = existingUser.password === userInfo.password;
+
+      if (matchPassword) {
+        return res.json({
+          status: 200,
+          message: 'Sign In Successfully.',
+          userData: { name: existingUser.fullName, userRole: existingUser.userRole, email: existingUser.email },
+        });
+      } else {
+        return res.status(401).json({ status: 401, message: 'Wrong Password!' });
+      }
+    });
+
 
 
     // Send a ping to confirm a successful connection
