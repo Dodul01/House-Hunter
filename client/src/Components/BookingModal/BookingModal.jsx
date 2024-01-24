@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { AppContext } from "../../Context/appContext";
+import toast, { Toaster } from "react-hot-toast";
 
 const BookingModal = ({ setIsModalOpen, clickedRoom }) => {
     const { user } = useContext(AppContext);
@@ -33,7 +34,7 @@ const BookingModal = ({ setIsModalOpen, clickedRoom }) => {
             .then(res => res.json())
             .then(data => {
                 if (data.insertedId) {
-                    alert('Room Booked Sucessfully')
+                    toast.success('Room Booked Sucessfully')
                 }
             })
 
@@ -44,7 +45,7 @@ const BookingModal = ({ setIsModalOpen, clickedRoom }) => {
     return (
         <div className='fixed inset-0 flex items-center justify-center'>
             <div className="absolute bg-gray-800 opacity-50 inset-0"></div>
-
+            <Toaster />
             <div className="z-10 bg-white p-8 rounded-lg max-w-md w-full">
                 <h2 className="text-2xl font-bold mb-2">{clickedRoom.name}</h2>
 
@@ -54,13 +55,13 @@ const BookingModal = ({ setIsModalOpen, clickedRoom }) => {
                             <label htmlFor="name" className="block text-gray-600 font-semibold mb-2">
                                 Name
                             </label>
-                            <input type="text" name="name" value={user.name} className="w-full border rounded-md p-2" readOnly />
+                            <input type="text" name="name" value={user?.name} className="w-full border rounded-md p-2" readOnly />
                         </div>
                         <div>
                             <label htmlFor="name" className="block text-gray-600 font-semibold mb-2">
                                 Email
                             </label>
-                            <input type="text" name="email" value={user.email} className="w-full border rounded-md p-2" readonly />
+                            <input type="text" name="email" value={user?.email} className="w-full border rounded-md p-2" readonly />
                         </div>
                     </div>
                     <div className="mb-1">
@@ -68,7 +69,7 @@ const BookingModal = ({ setIsModalOpen, clickedRoom }) => {
                             <label htmlFor="name" className="block text-gray-600 font-semibold mb-2">
                                 Phone
                             </label>
-                            <input type="text" name="phone" value={user.phone} className="w-full border rounded-md p-2" readOnly />
+                            <input type="text" name="phone" value={user?.phone} className="w-full border rounded-md p-2" readOnly />
                         </div>
                     </div>
 

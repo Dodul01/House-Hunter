@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoIosArrowDown } from "react-icons/io";
 import HouseModal from '../HouseModal/HouseModal';
+import toast from 'react-hot-toast';
+
 
 const NavBar = ({ userName, userRole }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -11,6 +13,7 @@ const NavBar = ({ userName, userRole }) => {
 
     const handleSignOut = () => {
         localStorage.clear();
+        toast.success('Sign Out Sucessfully')
         navigate('/');
     }
 
@@ -20,7 +23,7 @@ const NavBar = ({ userName, userRole }) => {
             {/* House Owner Navbar */}
             {userRole === 'houseOwner' &&
 
-                <div className=' p-2 mb-10 flex items-center justify-between'>
+                <div className=' p-2 mb-4 flex items-center justify-between'>
                     <div>
                         <h1 className='text-3xl font-bold text-[#E4002B]'>House Hunter</h1>
                     </div>
@@ -53,7 +56,7 @@ const NavBar = ({ userName, userRole }) => {
 
             {/* House Renter Navbar */}
             {userRole === 'houseRenter' &&
-                <div className='p-2 mb-10 flex items-center justify-between'>
+                <div className='p-2 mb-4 flex items-center justify-between'>
                     <div>
                         <h1 className='text-3xl font-bold text-[#E4002B]'>House Hunter</h1>
                     </div>
@@ -67,7 +70,7 @@ const NavBar = ({ userName, userRole }) => {
             }
 
             {userRole === undefined &&
-                <div className='p-2 mb-10 flex items-center justify-between'>
+                <div className='p-2 mb-4 flex items-center justify-between'>
                     <div>
                         <h1 className='text-3xl font-bold text-[#E4002B]'>House Hunter</h1>
                     </div>

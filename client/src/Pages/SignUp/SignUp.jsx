@@ -7,6 +7,7 @@ import { FaRegEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AppContext } from "../../Context/appContext";
+import toast, { Toaster } from "react-hot-toast";
 
 const SignUp = () => {
     const { storeUserInfoInLocalStorage } = useContext(AppContext);
@@ -34,6 +35,7 @@ const SignUp = () => {
                 localStorage.setItem('accessToken', data.token)
 
                 if (data.status == 200) {
+                    toast.success('Sign Up Sucessfully.')
                     navigate(`/${data.userData.role}`)
                     storeUserInfoInLocalStorage(data.userData);
                 }
@@ -52,7 +54,7 @@ const SignUp = () => {
                         <SiNamecheap className="text-2xl ml-1" />
                         <input className="w-full p-1 outline-none border-none" type="text" placeholder="Full Name" name="fullName" />
                     </div>
-
+                    <Toaster />
                     <div className="border border-[#CAC8CC] rounded-lg flex items-center p-1 gap-2 my-2">
                         <TiGroup className="text-2xl ml-1" />
                         <select className="w-full p-1 outline-none border-none" name="userRole">

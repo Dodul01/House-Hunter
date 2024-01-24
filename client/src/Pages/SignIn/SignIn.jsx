@@ -4,6 +4,7 @@ import { FaRegEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AppContext } from "../../Context/appContext";
+import toast, { Toaster } from "react-hot-toast";
 
 const SignIn = () => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -30,13 +31,14 @@ const SignIn = () => {
         })
             .then(res => res.json())
             .then(data => {
-                
+
                 setUser(data.userData);
                 storeUserInfoInLocalStorage(data.userData);
 
                 if (data.status == 200) {
                     navigate(`/${data.userData.role}`)
                     localStorage.setItem('accessToken', data.token)
+                    toast.success('Sign In Sucessfully.')
                 }
             })
 
@@ -70,6 +72,7 @@ const SignIn = () => {
 
                     <button className="w-full my-4 bg-[#E4002B] text-white p-2 rounded-lg" type="submit">Sign Up</button>
                 </form>
+                <Toaster />
             </div>
         </div>
     )
