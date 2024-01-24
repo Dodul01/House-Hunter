@@ -6,10 +6,6 @@ Welcome to House Hunter, your ultimate destination for finding the perfect home 
 
 - [Features](#features)
 - [Technologies Used](#technologies-used)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
