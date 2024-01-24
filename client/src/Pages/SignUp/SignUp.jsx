@@ -23,7 +23,7 @@ const SignUp = () => {
         const password = Form.password.value
         const userInfo = { fullName, userRole, phoneNumber, email, password };
 
-        fetch('http://localhost:5000/signUp', {
+        fetch('https://server-nine-jet-46.vercel.app/signUp', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

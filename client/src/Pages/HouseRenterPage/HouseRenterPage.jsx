@@ -10,7 +10,7 @@ const HouseRenterPage = () => {
   const token = localStorage.getItem('accessToken');
 
   const handleCancelBooking = (id) => {
-    fetch(`http://localhost:5000/cancleBooking/${id}`, {
+    fetch(`https://server-nine-jet-46.vercel.app/cancleBooking/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -26,7 +26,7 @@ const HouseRenterPage = () => {
   }
 
   useEffect(() => {
-    fetch('http://localhost:5000/getBookedRooms', {
+    fetch('https://server-nine-jet-46.vercel.app/getBookedRooms', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -54,7 +54,7 @@ const HouseRenterPage = () => {
             </tr>
           </thead>
           <tbody>
-            {bookedRooms.map((booking) => (
+            {bookedRooms?.map((booking) => (
               <tr key={booking._id} className="hover:bg-gray-100">
                 <td className="flex items-center justify-center border-b p-4">
                   <img src={booking.roomImage} alt={booking.name} className="w-16 rounded-full h-16 object-cover" />

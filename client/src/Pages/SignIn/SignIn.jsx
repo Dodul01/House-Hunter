@@ -21,7 +21,7 @@ const SignIn = () => {
         const userInfo = { email, password };
 
 
-        fetch('http://localhost:5000/signIn', {
+        fetch('https://server-nine-jet-46.vercel.app/signIn', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,

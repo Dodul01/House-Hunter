@@ -70,7 +70,7 @@ async function run() {
           name: userInfo.fullName,
           role: userInfo.userRole,
           email: userInfo.email,
-          phone: userInfo.phone
+          phone: userInfo.phoneNumber
         }
       })
     })
@@ -136,7 +136,6 @@ async function run() {
     app.get('/allRooms', async (req, res) => {
       const result = await roomsCollections.find().toArray();
 
-      console.log(result);
       res.send(result)
     })
 
@@ -157,6 +156,13 @@ async function run() {
       const result = await bookedRoomCollections.find(query).toArray();
 
       res.send(result);
+    })
+
+    app.delete('/cancleBooking/:id', verifyToken, async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await bookedRoomCollections.deleteOne(query);
+      res.send(result)
     })
 
     // Send a ping to confirm a successful connection

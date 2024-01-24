@@ -13,7 +13,7 @@ const Home = () => {
   const [clickedRoom, setClickedRoom] = useState({});
 
   useEffect(() => {
-    fetch('http://localhost:5000/allRooms', {
+    fetch('https://server-nine-jet-46.vercel.app/allRooms', {
       method: 'GET',
       headers: {
         'Content-type': 'application/json'

@@ -23,7 +23,7 @@ const BookingModal = ({ setIsModalOpen, clickedRoom }) => {
             renterEmail: user.email,
         }
 
-        fetch('http://localhost:5000/bookedRooms', {
+        fetch('https://server-nine-jet-46.vercel.app/bookedRooms', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,

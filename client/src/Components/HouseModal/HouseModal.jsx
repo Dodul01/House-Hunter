@@ -21,7 +21,7 @@ const HouseModal = ({ setIsModalOpen }) => {
 
         const token = localStorage.getItem('accessToken');
 
-        fetch('http://localhost:5000/rooms', {
+        fetch('https://server-nine-jet-46.vercel.app/rooms', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,

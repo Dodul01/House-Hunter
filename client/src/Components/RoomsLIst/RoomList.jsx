@@ -8,7 +8,7 @@ const RoomList = () => {
     const token = localStorage.getItem('accessToken');
 
     const handleDelete = (id) => {
-        fetch(`http://localhost:5000/rooms/${id}`, {
+        fetch(`https://server-nine-jet-46.vercel.app/rooms/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -25,7 +25,7 @@ const RoomList = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/rooms?email=${user.email}`, {
+        fetch(`https://server-nine-jet-46.vercel.app/rooms?email=${user.email}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -76,7 +76,7 @@ const RoomList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {rooms.map((room) => {
+                    {rooms?.map((room) => {
                         return <tr key={room?._id} className="bg-white border-b hover:bg-gray-100">
                             <td scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
                                 <img className="h-[50px] w-[50px] rounded-full" src={room?.roomImage} alt="" />

@@ -5,6 +5,7 @@ import SignUp from '../Pages/SignUp/SignUp'
 import SignIn from '../Pages/SignIn/SignIn'
 import HouseOwnerPage from '../Pages/HouseOwnerPage/HouseOwnerPage'
 import HouseRenterPage from '../Pages/HouseRenterPage/HouseRenterPage'
+import PrivateRouter from './PrivateRouter'
 
 const router = createBrowserRouter([
     {
@@ -17,11 +18,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/houseOwner',
-                element: <HouseOwnerPage />
+                element: <PrivateRouter><HouseOwnerPage /></PrivateRouter>
             },
             {
                 path: '/houseRenter',
-                element: <HouseRenterPage />
+                element: <PrivateRouter><HouseRenterPage /></PrivateRouter>
             }
         ]
     },
