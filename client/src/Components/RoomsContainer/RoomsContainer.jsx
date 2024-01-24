@@ -1,9 +1,22 @@
+import { useContext } from "react";
 import { IoLocationSharp } from "react-icons/io5";
+import { AppContext } from "../../Context/appContext";
 
-const RoomsContainer = ({ rooms }) => {
+const RoomsContainer = ({ rooms, setIsModalOpen , setClickedRoom}) => {
+    const { user } = useContext(AppContext);
+
+    const handleBooking = (room) => {
+        if(user?.role === 'houseOwner'){
+            return alert('You can not book any room')
+        }
+
+        setClickedRoom(room);
+        setIsModalOpen(true);
+    }
+
     return (
         <div className="m-5 grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5">
-            {rooms.map((room) => {
+            {rooms?.map((room) => {
                 return <div key={room?.room_id} className="border border-gray-300 rounded-xl shadow-md p-2">
                     <img className="w-full bg-center object-cover rounded-xl" src={room?.roomImage} alt="room_Image" />
                     <div className="mt-4">
@@ -14,7 +27,7 @@ const RoomsContainer = ({ rooms }) => {
                             <p>{room?.address}</p>
                         </div>
                         <p className="text-gray-500">{room?.city}</p>
-                        <button className="bg-[#E4002B] text-white w-full font-semibold p-2 rounded-lg mt-4" type="submit">Rent Now</button>
+                        <button onClick={()=> handleBooking(room)} className="bg-[#E4002B] text-white w-full font-semibold p-2 rounded-lg mt-4" type="submit">Rent Now</button>
                     </div>
                 </div>
             })}

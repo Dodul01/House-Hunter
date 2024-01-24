@@ -14,7 +14,7 @@ const NavBar = ({ userName, userRole }) => {
         navigate('/');
     }
 
-    
+
     return (
         <nav>
             {/* House Owner Navbar */}
@@ -25,7 +25,9 @@ const NavBar = ({ userName, userRole }) => {
                         <h1 className='text-3xl font-bold text-[#E4002B]'>House Hunter</h1>
                     </div>
                     <div className='flex items-center justify-between gap-10'>
-                        <div>
+                        <div className='flex items-center justify-between gap-4'>
+                            <Link className='font-semibold hover:text-[#E4002B]' to='/'>Home</Link>
+                            <Link className='font-semibold hover:text-[#E4002B]' to='/houseOwner'>Dashbord</Link>
                             <button onClick={() => setIsModalOpen(true)} className='text-lg bg-[#E4002B] text-white font-semibold p-2 rounded-lg'>Add House</button>
                         </div>
                         <div className='flex items-center gap-4 relative select-none'>

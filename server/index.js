@@ -51,6 +51,7 @@ async function run() {
     // await client.connect();
     const userCollections = client.db('HouseHunter').collection('userCollections');
     const roomsCollections = client.db('HouseHunter').collection('roomsCollections');
+    const bookedRoomCollections = client.db('HouseHunter').collection('bookedRoomCollections');
 
     app.post('/signUp', async (req, res) => {
       const userInfo = req.body;
@@ -68,12 +69,13 @@ async function run() {
         status: 200, message: 'Sign Up Sucessfully!', token, userData: {
           name: userInfo.fullName,
           role: userInfo.userRole,
-          email: userInfo.email
+          email: userInfo.email,
+          phone: userInfo.phone
         }
       })
     })
 
-    app.post('/signIn', verifyToken, async (req, res) => {
+    app.post('/signIn', async (req, res) => {
       const userInfo = req.body;
 
       const existingUser = await userCollections.findOne({ email: userInfo.email });
@@ -85,13 +87,17 @@ async function run() {
       const matchPassword = existingUser.password === userInfo.password;
 
       if (matchPassword) {
+        const token = jwt.sign({ email: userInfo.email, userRole: userInfo.userRole }, process.env.ACCESS_TOKEN, { expiresIn: '1d' })
+
         return res.json({
           status: 200,
           message: 'Sign In Successfully.',
+          token,
           userData: {
             name: existingUser.fullName,
             role: existingUser.userRole,
-            email: existingUser.email
+            email: existingUser.email,
+            phone: existingUser.phoneNumber
           },
         });
       } else {
@@ -121,10 +127,24 @@ async function run() {
 
     app.delete('/rooms/:id', verifyToken, async (req, res) => {
       const id = req.params.id;
-      const query = {_id: new ObjectId(id)};
+      const query = { _id: new ObjectId(id) };
       const result = await roomsCollections.deleteOne(query);
 
       res.send(result);
+    })
+
+    app.get('/allRooms', async (req, res) => {
+      const result = await roomsCollections.find().toArray();
+
+      console.log(result);
+      res.send(result)
+    })
+
+    app.post('/bookedRooms', verifyToken, async (req, res) => {
+      const bookedRoom = req.body;
+      const result = await bookedRoomCollections.insertOne(bookedRoom)
+      
+      res.send(result)
     })
 
     // Send a ping to confirm a successful connection
