@@ -143,8 +143,20 @@ async function run() {
     app.post('/bookedRooms', verifyToken, async (req, res) => {
       const bookedRoom = req.body;
       const result = await bookedRoomCollections.insertOne(bookedRoom)
-      
+
       res.send(result)
+    })
+
+    app.get('/getBookedRooms', verifyToken, async (req, res) => {
+      let query = {};
+
+      if (req.query?.email) {
+        query = { email: req.query?.email }
+      }
+
+      const result = await bookedRoomCollections.find(query).toArray();
+
+      res.send(result);
     })
 
     // Send a ping to confirm a successful connection
